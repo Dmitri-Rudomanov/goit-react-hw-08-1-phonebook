@@ -13,10 +13,9 @@ export const userApi = createApi({
         url: '/users/signup',
         method: 'POST',
         body: {
-          user: userState.user,
-          token: userState.token,
-          isLoggedIn: userState.isLoggedIn,
-          isFetchingCurrentUser: userState.isFetchingCurrentUser,
+          name: userState.name,
+          email: userState.email,
+          password: userState.password,
         },
       }),
       invalidatesTags: ['Users'],
