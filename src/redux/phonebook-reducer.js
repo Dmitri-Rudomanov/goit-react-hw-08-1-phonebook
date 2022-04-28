@@ -1,22 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://6260fbd1f429c20deb98a05b.mockapi.io',
+    baseUrl: 'https://connections-api.herokuapp.com/',
   }),
   tagTypes: ['Contacts'],
   endpoints: builder => ({
     fetchContacts: builder.query({
-      query: () => '/contacts',
+      query: token => ({
+        url: '/contacts',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ['Contacts'],
     }),
     deleteContact: builder.mutation({
-      query: contactId => ({
-        url: `/contacts/${contactId}`,
+      query: arg => ({
+        url: `/contacts/${arg.contact}`,
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${arg.token}`,
+        },
       }),
       invalidatesTags: ['Contacts'],
     }),
@@ -28,6 +38,9 @@ export const contactsApi = createApi({
           id: content.id,
           name: content.name,
           number: content.number,
+        },
+        headers: {
+          Authorization: `Bearer ${content.token}`,
         },
       }),
       invalidatesTags: ['Contacts'],

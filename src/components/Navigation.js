@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-// import { authSelectors } from '../redux/auth';
+import { authSelectors } from '../redux/auth';
 
 const styles = {
   link: {
@@ -13,22 +13,36 @@ const styles = {
   },
   activeLink: {
     color: '#E84A5F',
+    display: 'inline-block',
+    textDecoration: 'none',
+    padding: 12,
+    fontWeight: 700,
   },
 };
 
 const Navigation = () => {
-  // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   return (
     <nav>
-      <NavLink to="/" style={styles.link}>
+      <NavLink
+        to="/"
+        style={navData => (navData.isActive ? styles.activeLink : styles.link)}
+      >
         Главная
       </NavLink>
 
-      <nav>
-        <NavLink to="/contacts" style={styles.link}>
-          Contacts
-        </NavLink>
-      </nav>
+      {isLoggedIn && (
+        <nav>
+          <NavLink
+            to="/contacts"
+            style={navData =>
+              navData.isActive ? styles.activeLink : styles.link
+            }
+          >
+            Contacts
+          </NavLink>
+        </nav>
+      )}
     </nav>
   );
 };

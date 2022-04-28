@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import { useFetchContactsQuery } from '../../redux/phonebook-reducer';
 
 const PhonebookList = () => {
-  const { data, isLoading } = useFetchContactsQuery();
+  const token = useSelector(state => state.auth.token);
+  const { data, isLoading } = useFetchContactsQuery(token);
   const filter = useSelector(state => state.contacts.filter);
 
   const getVisibleContacts = () => {

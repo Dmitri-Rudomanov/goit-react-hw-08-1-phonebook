@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import s from './PhonebookForm.module.css';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
@@ -7,7 +8,8 @@ import {
   useFetchContactsQuery,
 } from '../../redux/phonebook-reducer';
 export default function PhonebookForm() {
-  const { data } = useFetchContactsQuery();
+  const token = useSelector(state => state.auth.token);
+  const { data } = useFetchContactsQuery(token);
   const [createContact] = useCreateContactMutation();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -34,7 +36,7 @@ export default function PhonebookForm() {
     if (searchContact) {
       alert(`${items.name} is already in conacts`);
     } else {
-      createContact({ id: shortid.generate(), ...items });
+      createContact({ id: shortid.generate(), token, ...items });
     }
   };
 

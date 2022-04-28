@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { authOperations } from '../redux/auth';
-import { useAddUserMutation } from '../../redux/auth/auth-slice';
+import { authOperations } from '../../redux/auth';
 
 const styles = {
   form: {
@@ -15,7 +14,6 @@ const styles = {
 };
 
 export default function RegisterView() {
-  const [AddUser] = useAddUserMutation();
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -36,8 +34,7 @@ export default function RegisterView() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // dispatch(authOperations.register({ name, email, password }));
-    AddUser({ name, email, password });
+    dispatch(authOperations.register({ name, email, password }));
     setName('');
     setEmail('');
     setPassword('');
