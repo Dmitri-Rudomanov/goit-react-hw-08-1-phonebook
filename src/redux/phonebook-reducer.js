@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 
 export const contactsApi = createApi({
