@@ -28,7 +28,13 @@ export default function App() {
           <Suspense fallback={'Loading...'}>
             <Routes>
               <Route path="/" element={<HomeView />} />
-              <Route path="/register" restricted element={<RegisterView />} />
+              <Route
+                path="/register"
+                restricted
+                element={
+                  !isLoggedIn ? <RegisterView /> : <Navigate to="/contacts" />
+                }
+              />
               <Route
                 path="/login"
                 redirectTo="/contacts"
