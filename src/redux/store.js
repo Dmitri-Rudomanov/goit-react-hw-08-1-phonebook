@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import contactReducer from './phonebook-reducer';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { contactsApi } from './phonebook-reducer';
-import { authReducer } from './auth/auth-slice';
+import authReducer from './auth/auth-slice';
 import {
   persistStore,
   persistReducer,
